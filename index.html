@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <section id="main_container">
+      <section id="landing-page">
+        <h2>Welcome to the Quiz App</h2>
+        <form>
+          <div>
+            <label for="number_input">Number of questions: </label>
+            <input type="number" id="number_input" min="1" max="10">
+          </div>
+          <div>
+            <label for="easy-or-difficult">Difficulty: </label>
+            <select id="easy-or-difficult">
+              <option value="easy">Easy</option>
+              <option value="difficult">Difficult</option>
+            </select>
+          </div>
+          <div id="start_button">
+            Start the quiz
+          </div>
+        </form>
+      </section>
+      <section id="question_container" style="display: none;">
+        <div class="question">
+          <!-- Sample multiple choice question -->
+          <p class="question_title">What does CPU stand for?</p>
+          <div class="answer">Central Processing Unit</div>
+          <div class="answer">Central Process Unit</div>
+          <div class="answer">Computer Personal Unit</div>
+          <div class="answer">Central Processor Unit</div>
+          <!-- Sample true false question -->
+          <!-- <p class="question_title">The logo for Snapchat is a Bell.</p>
+          <div class="answer" >True</div>
+          <div class="answer">False</div> -->
+        </div>
+        <p class="question_number">Question 1 / 10</p>
+      </section>
+    </section>
+    <script src="./script.js"></script>
+  </body>
+</html>
