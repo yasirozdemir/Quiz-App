@@ -190,4 +190,135 @@ const questionsDifficult = [
   },
 ];
 
+// GLOBAL VARIABLES
+
+let startButton = document.getElementById("start_button");
+let nextButton = document.getElementById("next_button");
+let questionNumber = document.getElementById("question_number");
+
+let landingPage = document.getElementById("landing-page");
+let questionContainer = document.getElementById("question_container");
+let resultPage = document.getElementById("result-page");
+
+let howManyCorrect = 0;
+let howManyIncorrect = 0;
+
+// FUNCTIONS
+
+function shuffle(array) {
+  let shuffledArray = [];
+  let usedIndexes = [];
+
+  let i = 0;
+  while (i < array.length) {
+    let randomIndex = Math.floor(Math.random() * array.length);
+    if (!usedIndexes.includes(randomIndex)) {
+      shuffledArray.push(array[randomIndex]);
+      usedIndexes.push(randomIndex);
+      i++;
+    }
+  }
+  return shuffledArray;
+}
+
+function selectingAnswer(eventData) {
+  if (eventData.target.classList.contains("correct")) {
+    eventData.target.style.backgroundColor = "green";
+    howManyCorrect++;
+  } else if (eventData.target.classList.contains("incorrect")) {
+    eventData.target.style.backgroundColor = "red";
+    howManyIncorrect++;
+  }
+
+  let siblingsArray = eventData.target.parentNode.childNodes;
+  let answersArray = [];
+  siblingsArray.forEach((element) => {
+    if (element.classList.contains("answer")) {
+      answersArray.push(element);
+    }
+  });
+  answersArray.forEach((element) => {
+    element.removeEventListener("click", selectingAnswer);
+  });
+}
+
+function showQuestions(difficultyLevel, numberOfQuestions) {
+  if (difficultyLevel === "easy") {
+    shuffledQuestionsArray = shuffle(questionsEasy);
+  } else {
+    shuffledQuestionsArray = shuffle(questionsDifficult);
+  }
+
+  for (let i = 0; i < numberOfQuestions; i++) {
+    // create question
+    let question = document.createElement("div");
+    question.className = "question";
+    questionContainer.appendChild(question);
+
+    let questionTitle = document.createElement("p");
+    questionTitle.className = "question_title";
+    questionTitle.innerText = shuffledQuestionsArray[i].question;
+    question.appendChild(questionTitle);
+
+    let correctAnswer = shuffledQuestionsArray[i].correct_answer;
+    let incorrectAnswers = shuffledQuestionsArray[i].incorrect_answers;
+
+    let allAnswersArray = [];
+    incorrectAnswers.forEach((element) => {
+      allAnswersArray.push(element);
+    });
+    allAnswersArray.push(correctAnswer);
+
+    let shuffledAllAnswersArray = shuffle(allAnswersArray);
+
+    shuffledAllAnswersArray.forEach((element) => {
+      let answer = document.createElement("div");
+      answer.className = "answer";
+      if (element === correctAnswer) {
+        answer.classList.add("correct");
+      } else {
+        answer.classList.add("incorrect");
+      }
+      answer.innerText = element;
+      answer.addEventListener("click", selectingAnswer);
+      question.appendChild(answer);
+    });
+    questionNumber.innerText = `Question 1 / ${numberOfQuestions}`;
+
+    if (i != 0) {
+      question.style.display = "none";
+    }
+  }
+}
+
+let indexOfNextQuestion = 1;
+function nextQuestion() {
+  let questions = document.getElementsByClassName("question");
+  if (indexOfNextQuestion != questions.length) {
+    questions[indexOfNextQuestion - 1].style.display = "none";
+    questions[indexOfNextQuestion].style.display = "flex";
+    questionNumber.innerText = `Question ${indexOfNextQuestion + 1} / ${
+      questions.length
+    }`;
+  } else {
+    questionContainer.style.display = "none";
+    resultPage.style.display = "flex";
+    resultPage.innerText = `correct: ${howManyCorrect}, incorrect: ${howManyIncorrect}, skipped: ${
+      questions.length - (howManyCorrect + howManyIncorrect)
+    }`;
+  }
+  return indexOfNextQuestion++;
+}
+
+function startQuiz() {
+  let numberOfQuestions = document.getElementById("number_input").value;
+  let difficultyLevel = document.getElementById("easy-or-difficult").value;
+  landingPage.style.display = "none";
+  questionContainer.style.display = "flex";
+  showQuestions(difficultyLevel, numberOfQuestions);
+}
+
+startButton.addEventListener("click", startQuiz);
+nextButton.addEventListener("click", nextQuestion);
+
 window.onload = function () {};
