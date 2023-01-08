@@ -174,4 +174,47 @@ body {
   min-height: 50%;
   background-color: rgba(0, 0, 0, 0.075);
   border-radius: 1.5rem;
+  position: relative;
+}
+
+.circle_container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(-90deg);
+}
+
+.white-circle,
+.purple-circle {
+  position: absolute;
+}
+
+.purple-circle {
+  stroke: rgb(61, 23, 102);
+  stroke-width: 29;
+  fill: none;
+  z-index: 100;
+}
+
+.white-circle {
+  stroke: rgba(255, 255, 255, 0.75);
+  stroke-width: 30;
+  fill: none;
+  z-index: 200;
+  stroke-dasharray: 754;
+  animation: fillDash 5s;
+}
+
+@keyframes fillDash {
+  0% {
+    stroke-dasharray: 754;
+  }
+  100% {
+    stroke-dasharray: 377;
+  }
 }

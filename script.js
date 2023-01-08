@@ -303,9 +303,9 @@ function nextQuestion() {
   } else {
     questionContainer.style.display = "none";
     resultPage.style.display = "flex";
-    resultPage.innerText = `correct: ${howManyCorrect}, incorrect: ${howManyIncorrect}, skipped: ${
-      questions.length - (howManyCorrect + howManyIncorrect)
-    }`;
+    // resultPage.innerText = `correct: ${howManyCorrect}, incorrect: ${howManyIncorrect}, skipped: ${
+    //   questions.length - (howManyCorrect + howManyIncorrect)
+    // }`;
   }
   return indexOfNextQuestion++;
 }
