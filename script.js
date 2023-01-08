@@ -192,6 +192,7 @@ const questionsDifficult = [
 
 // GLOBAL VARIABLES
 
+let numberInput = document.getElementById("number_input");
 let startButton = document.getElementById("start_button");
 let nextButton = document.getElementById("next_button");
 let questionNumber = document.getElementById("question_number");
@@ -202,6 +203,8 @@ let resultPage = document.getElementById("result-page");
 
 let howManyCorrect = 0;
 let howManyIncorrect = 0;
+
+let whiteCircle = document.getElementById("white-circle");
 
 // FUNCTIONS
 
@@ -223,14 +226,21 @@ function shuffle(array) {
 
 function selectingAnswer(eventData) {
   if (eventData.target.classList.contains("correct")) {
-    eventData.target.style.backgroundColor = "green";
     howManyCorrect++;
   } else if (eventData.target.classList.contains("incorrect")) {
-    eventData.target.style.backgroundColor = "red";
     howManyIncorrect++;
   }
+  eventData.target.classList.add("selected");
 
   let siblingsArray = eventData.target.parentNode.childNodes;
+  siblingsArray.forEach((element) => {
+    if (element.classList.contains("answer")) {
+      if (!element.classList.contains("selected")) {
+        element.classList.add("unselected");
+      }
+    }
+  });
+
   let answersArray = [];
   siblingsArray.forEach((element) => {
     if (element.classList.contains("answer")) {
@@ -243,6 +253,7 @@ function selectingAnswer(eventData) {
 }
 
 function showQuestions(difficultyLevel, numberOfQuestions) {
+  // ** a feature to make user able to change their answer can be added
   if (difficultyLevel === "easy") {
     shuffledQuestionsArray = shuffle(questionsEasy);
   } else {
@@ -303,22 +314,58 @@ function nextQuestion() {
   } else {
     questionContainer.style.display = "none";
     resultPage.style.display = "flex";
-    // resultPage.innerText = `correct: ${howManyCorrect}, incorrect: ${howManyIncorrect}, skipped: ${
-    //   questions.length - (howManyCorrect + howManyIncorrect)
-    // }`;
+
+    let percentageOfCorrect = (
+      Math.round((howManyCorrect / questions.length) * 100 * 100) / 100
+    ).toFixed(2);
+    // whiteCircle.style.transition = "stroke-dashoffset 3s";
+    whiteCircle.style.strokeDashoffset = `${(754 * percentageOfCorrect) / 100}`;
+
+    let resultMessage = document.querySelector(
+      "#result-page > div:nth-of-type(1)"
+    );
+    if (percentageOfCorrect >= 60) {
+      resultMessage.innerText = "CONGRATS";
+    } else {
+      resultMessage.innerText = "TRY AGAIN LATER";
+    }
+
+    let percentageOfIncorrect = (
+      Math.round((howManyIncorrect / questions.length) * 100 * 100) / 100
+    ).toFixed(2);
+
+    let howManySkipped = questions.length - (howManyCorrect + howManyIncorrect);
+    let percentageOfSkipped = (
+      Math.round((howManySkipped / questions.length) * 100 * 100) / 100
+    ).toFixed(2);
+
+    let result = document.querySelector(
+      ".circle_container > div:nth-of-type(1)"
+    );
+    result.innerHTML = `${percentageOfCorrect}% Correct <br> ${percentageOfIncorrect}% Incorrect <br> ${percentageOfSkipped}% Skipped`;
   }
   return indexOfNextQuestion++;
 }
 
 function startQuiz() {
-  let numberOfQuestions = document.getElementById("number_input").value;
-  let difficultyLevel = document.getElementById("easy-or-difficult").value;
-  landingPage.style.display = "none";
-  questionContainer.style.display = "flex";
-  showQuestions(difficultyLevel, numberOfQuestions);
+  if (numberInput.value != "") {
+    if (numberInput.value > 10) {
+      alert("Select a number no more than 10!");
+      return;
+    } else {
+      let numberOfQuestions = document.getElementById("number_input").value;
+      let difficultyLevel = document.getElementById("easy-or-difficult").value;
+      landingPage.style.display = "none";
+      questionContainer.style.display = "flex";
+      showQuestions(difficultyLevel, numberOfQuestions);
+    }
+  } else {
+    alert("Select number of questions first!");
+    return;
+  }
 }
+
+// EVENT LISTENERS
 
 startButton.addEventListener("click", startQuiz);
 nextButton.addEventListener("click", nextQuestion);
-
-window.onload = function () {};

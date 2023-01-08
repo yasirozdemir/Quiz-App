@@ -5,7 +5,7 @@
   </head>
   <body>
     <section id="main_container">
-      <section id="landing-page" style="display: none;">
+      <section id="landing-page">
         <h2>Quiz App by MYOzdemir</h2>
         <form>
           <div>
@@ -36,21 +36,21 @@
         <div id="next_button">Next Question</div>
         <p id="question_number"></p>
       </section>
-      <section id="result-page" style="display: flex">
-        <div>hello</div>
+      <section id="result-page" style="display: none">
+        <div><!--Result Message--></div> 
         <div class="circle_container">
-          <div class="white-circle">
-            <svg height="300" width="300">
-              <circle cx="150" cy="150" r="120"/>
-            </svg>
-          </div>
+          <div></div>
           <div class="purple-circle">
             <svg height="300" width="300">
               <circle cx="150" cy="150" r="120"/>
             </svg>
           </div>
+          <div class="white-circle" id="white-circle">
+            <svg height="300" width="300">
+              <circle cx="150" cy="150" r="120"/>
+            </svg>
+          </div>
         </div>
-        <div>bye</div>
       </section>
     </section>
     <script src="./script.js"></script>
