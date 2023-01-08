@@ -1,9 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap");
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  color: #eaeaea;
+  font-family: "Ubuntu", sans-serif;
 }
 
 #main_container {
@@ -12,7 +16,13 @@ body {
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: rgba(2, 112, 131, 0.705);
+  /* background-color: rgba(2, 112, 131, 0.705); */
+  background: rgb(111, 26, 182);
+  background: radial-gradient(
+    circle,
+    rgba(111, 26, 182, 1) 0%,
+    rgba(61, 23, 102, 1) 100%
+  );
   font-size: 1.2rem;
 }
 
@@ -25,8 +35,17 @@ body {
   align-items: center;
   min-width: 60%;
   min-height: 50%;
-  background-color: wheat;
+  background-color: rgba(0, 0, 0, 0.075);
   border-radius: 1.5rem;
+}
+
+#landing-page h2 {
+  font-size: 2.5rem;
+  border-bottom: dashed 2px rgba(255, 255, 255, 0.75);
+  border-radius: 10px;
+  padding-right: 15px;
+  padding-bottom: 20px;
+  padding-left: 15px;
 }
 
 #landing-page form {
@@ -36,24 +55,56 @@ body {
   align-items: center;
 }
 
+#landing-page form label {
+  margin-right: 15px;
+}
+
+#number_input,
+#easy-or-difficult {
+  width: 5vw;
+  height: 3.5vh;
+  border: none;
+  border-radius: 20px;
+  padding: 0px 5px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.55);
+  font-size: 1rem;
+  color: rgb(61, 23, 102);
+}
+
+#number_input {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+#number-input::-webkit-inner-spin-button,
+#number-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 #landing-page form > div {
-  margin-top: 2vh;
+  margin-top: 3vh;
 }
 
 #start_button,
 #next_button {
   box-shadow: 0 0 5px 1px rgba(68, 68, 68, 0.356);
   text-align: center;
-  width: 8vw;
-  padding: 5px 20px;
+  width: 10vw;
+  padding: 10px 0px;
   border-radius: 20px;
   cursor: pointer;
-  transition: background-color 500ms;
+  background-color: rgba(255, 255, 255, 0.55);
+  font-weight: 700;
+  color: rgb(61, 23, 102);
+  transition: background-color 500ms, color 500ms;
 }
 
 #start_button:hover,
 #next_button:hover {
-  background-color: rgba(2, 112, 131, 0.705);
+  background-color: rgb(61, 23, 102);
+  color: #eaeaea;
 }
 
 /* -------------------QUESTION RELATED-------------------  */
@@ -65,14 +116,15 @@ body {
   align-items: center;
   position: relative;
   text-align: center;
-  min-width: 60%;
-  min-height: 50%;
-  background-color: wheat;
+  width: 60%;
+  height: 50%;
+  background-color: rgba(0, 0, 0, 0.075);
   border-radius: 1.5rem;
 }
 
 .question_title {
-  min-width: 100%;
+  min-width: 65%;
+  max-width: 70%;
   font-size: 1.5rem;
   padding: 1rem 0;
   margin: 0;
@@ -89,18 +141,26 @@ body {
 .answer {
   min-width: 40%;
   line-height: 3rem;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.75);
   border-radius: 1.5rem;
+  color: rgb(61, 23, 102);
+  cursor: pointer;
+  transition: background-color 300ms, color 300ms;
+}
+
+.answer:hover {
+  background-color: rgb(61, 23, 102);
+  color: #eaeaea;
 }
 
 #next_button {
   position: absolute;
-  bottom: 9vh;
+  bottom: 7vh;
 }
 
 #question_number {
   position: absolute;
-  bottom: 2vh;
+  bottom: 1vh;
 }
 
 /* -------------------RESULT PAGE RELATED------------------- */
@@ -112,6 +172,6 @@ body {
   align-items: center;
   min-width: 60%;
   min-height: 50%;
-  background-color: rgb(14, 187, 255);
+  background-color: rgba(0, 0, 0, 0.075);
   border-radius: 1.5rem;
 }
