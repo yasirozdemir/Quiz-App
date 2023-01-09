@@ -225,6 +225,7 @@ function shuffle(array) {
 }
 
 function selectingAnswer(eventData) {
+  // ** a feature to make user able to change their answer can be added
   if (eventData.target.classList.contains("correct")) {
     howManyCorrect++;
   } else if (eventData.target.classList.contains("incorrect")) {
@@ -253,7 +254,6 @@ function selectingAnswer(eventData) {
 }
 
 function showQuestions(difficultyLevel, numberOfQuestions) {
-  // ** a feature to make user able to change their answer can be added
   if (difficultyLevel === "easy") {
     shuffledQuestionsArray = shuffle(questionsEasy);
   } else {
