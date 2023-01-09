@@ -302,6 +302,17 @@ function showQuestions(difficultyLevel, numberOfQuestions) {
   }
 }
 
+function animationFunction(num) {
+  let temp = -1;
+  const animation = setInterval(() => {
+    temp++;
+    whiteCircle.style.strokeDashoffset = temp;
+    if (temp === parseInt(num)) {
+      clearInterval(animation);
+    }
+  }, 10);
+}
+
 let indexOfNextQuestion = 1;
 function nextQuestion() {
   let questions = document.getElementsByClassName("question");
@@ -318,8 +329,10 @@ function nextQuestion() {
     let percentageOfCorrect = (
       Math.round((howManyCorrect / questions.length) * 100 * 100) / 100
     ).toFixed(2);
-    // whiteCircle.style.transition = "stroke-dashoffset 3s";
-    whiteCircle.style.strokeDashoffset = `${(754 * percentageOfCorrect) / 100}`;
+
+    let lastValueOfStrokeDashoffset = (754 * percentageOfCorrect) / 100;
+
+    animationFunction(lastValueOfStrokeDashoffset);
 
     let resultMessage = document.querySelector(
       "#result-page > div:nth-of-type(1)"
